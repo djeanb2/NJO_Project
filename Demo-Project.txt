@@ -1,3 +1,3 @@
 New joiner demo project
 
-Spring MVC and Angular JS CRUD web project
+Spring MVC + Hibernate + Angular JS CRUD web project
