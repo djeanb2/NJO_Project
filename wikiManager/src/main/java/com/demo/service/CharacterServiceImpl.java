@@ -1,5 +1,6 @@
 package com.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +23,7 @@ public class CharacterServiceImpl implements CharacterService{
 	public Character createCharacter(Character character) {
 		return characterRepository.save(character);
 	}
-
+	
 	@Override
 	public Character updateCharacter(Character character) {
 		Optional<Character> characterDb = this.characterRepository.findById(character.getId());
@@ -45,7 +46,10 @@ public class CharacterServiceImpl implements CharacterService{
 
 	@Override
 	public List<Character> getAllCharacters() {
-		return this.characterRepository.findAll();
+		//return this.characterRepository.findAll();
+		List<Character> characterList = new ArrayList<>();
+		this.characterRepository.findAll().forEach(character -> characterList.add(character));
+		return characterList;
 	}
 
 	@Override
@@ -60,16 +64,36 @@ public class CharacterServiceImpl implements CharacterService{
 			throw new ResourceNotFoundException("Character was not found with ID: "+ characterId);
 		}
 	}
+	
+	@Override
+	public boolean saveOrUpdateCharacter(Character character) {
+		Character updateChar = characterRepository.save(character);
+		
+		if(characterRepository.findById(updateChar.getId())!=null) {
+			return true;
+		}
+		return false;
+	}
 
 	@Override
-	public void deleteCharacter(long characterId) {
-		Optional<Character> characterDb = this.characterRepository.findById(characterId);
+	public boolean deleteCharacter(long characterId) {
+		/*Optional<Character> characterDb = this.characterRepository.findById(characterId);
 		
 		if(characterDb.isPresent()) {
 			this.characterRepository.delete(characterDb.get());
 		}
 		else {
 			throw new ResourceNotFoundException("Character was not found with ID: "+ characterId);
+		}*/
+		
+		Optional<Character> characterDb = this.characterRepository.findById(characterId);
+		
+		if(characterDb.isPresent()) {
+			this.characterRepository.delete(characterDb.get());
+			return true;
+		}
+		else {
+			return false;
 		}
 		
 	}

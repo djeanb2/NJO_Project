@@ -14,6 +14,8 @@ public interface CharacterService {
 	
 	Character getCharacterById(long characterId);
 	
-	void deleteCharacter(long id);
+	boolean deleteCharacter(long id);
+	
+	boolean saveOrUpdateCharacter(Character character);
 
 }
