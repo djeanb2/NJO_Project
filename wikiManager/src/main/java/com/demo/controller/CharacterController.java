@@ -68,15 +68,16 @@ public class CharacterController {
 		return "redirect:/editCharacter/" + character.getId();
 	}
 	
-	@DeleteMapping("/deleteCharacter/{id}")
+	@GetMapping("/deleteCharacter/{id}")
 	public String deleteCharacter(@PathVariable Long id, RedirectAttributes redirectAttributes) {
 		if(characterService.deleteCharacter(id)) {
 			redirectAttributes.addFlashAttribute("message", "Character Deleted Successfully");
 			//return "redirect:/wiki";
 		}
+		else {
+			redirectAttributes.addFlashAttribute("message", "Delete Failure");
+		}
 		
-		redirectAttributes.addFlashAttribute("message", "Delete Failure");
-		//return "redirect:/addCharacter";
 		return "redirect:/viewCharacterList";
 	}
 	

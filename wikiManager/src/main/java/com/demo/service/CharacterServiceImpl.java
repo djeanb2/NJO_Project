@@ -77,23 +77,25 @@ public class CharacterServiceImpl implements CharacterService{
 
 	@Override
 	public boolean deleteCharacter(long characterId) {
-		/*Optional<Character> characterDb = this.characterRepository.findById(characterId);
+
+		this.characterRepository.deleteById(characterId);
+		if(characterRepository.findById(characterId) != null) {
+			return true;
+		}
+
+		return false;
+		
+	}
+	
+	@Override
+	public void deleteACharacter(long characterId) {
+		Optional<Character> characterDb = this.characterRepository.findById(characterId);
 		
 		if(characterDb.isPresent()) {
 			this.characterRepository.delete(characterDb.get());
 		}
 		else {
 			throw new ResourceNotFoundException("Character was not found with ID: "+ characterId);
-		}*/
-		
-		Optional<Character> characterDb = this.characterRepository.findById(characterId);
-		
-		if(characterDb.isPresent()) {
-			this.characterRepository.delete(characterDb.get());
-			return true;
-		}
-		else {
-			return false;
 		}
 		
 	}
