@@ -46,10 +46,10 @@ public class CharacterServiceImpl implements CharacterService{
 
 	@Override
 	public List<Character> getAllCharacters() {
-		//return this.characterRepository.findAll();
-		List<Character> characterList = new ArrayList<>();
+		return this.characterRepository.findAll();
+		/*List<Character> characterList = new ArrayList<>();
 		this.characterRepository.findAll().forEach(character -> characterList.add(character));
-		return characterList;
+		return characterList;*/
 	}
 
 	@Override
